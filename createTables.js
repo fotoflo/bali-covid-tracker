@@ -13,7 +13,6 @@ function createTables(db){
   db.query(`CREATE TABLE IF NOT EXISTS
                   raw_reports(
                     id SERIAL PRIMARY KEY,
-                    url VARCHAR (4096) NOT NULL,
                     fetch_date date,
                     report JSON NOT NULL
                   )

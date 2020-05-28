@@ -1,6 +1,6 @@
 const should = require('chai').should();
-const database = require('../database');
 
+const database = require('../database');
 const db = database.db;
 
 describe('database.db', () => {

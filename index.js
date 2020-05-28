@@ -1,9 +1,11 @@
 const fetchDailyData = require('./scrape').fetchDailyData;
+const storeParsedResults = require('./store').storeParsedResults;
 const database = require('./database')
+const db = database.db;
 
 const run = async () => {
 	const data = await fetchDailyData()
-	console.log(data);
+	const stored = await storeParsedResults(data)
 }
 
 run();

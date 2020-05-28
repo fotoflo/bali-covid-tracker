@@ -23,7 +23,6 @@ console.log(`logging into database ${settings.database} at ${settings.host}\n`)
 
 db.configure(settings, require('mysql2'));
 
-
 module.exports = {
   db
 };
