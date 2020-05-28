@@ -4,7 +4,7 @@ const fetchDailyData = require('../scrape').fetchDailyData;
 describe('fetchDailyData', () => {
 	// arrange 
 
-	it(`should return an object`,
+ 	it(`should return an object with BADUNG as a property`,
 		async () => {
 			// act
 			let result = await fetchDailyData();

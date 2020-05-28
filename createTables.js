@@ -1,6 +1,6 @@
-function createTables(client){
+function createTables(db){
 
-  client.query(`CREATE TABLE IF NOT EXISTS
+  db.query(`CREATE TABLE IF NOT EXISTS
                   regency_data(
                     id SERIAL PRIMARY KEY,
                     date DATE,
@@ -10,7 +10,7 @@ function createTables(client){
                   )
   `);
 
-  client.query(`CREATE TABLE IF NOT EXISTS
+  db.query(`CREATE TABLE IF NOT EXISTS
                   raw_reports(
                     id SERIAL PRIMARY KEY,
                     url VARCHAR (4096) NOT NULL,

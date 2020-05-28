@@ -1,5 +1,9 @@
 // dependencies
-const mysql = require('mysql');
+var mysql2 = require('mysql2');
+const db = require('mysql-promise')();
+
+// to do https://github.com/martinj/node-mysql-promise
+
 const createTables = require('./createTables')
 
 const settings = {
@@ -10,7 +14,6 @@ const settings = {
     port: process.env.DB_PORT
   }
 
-
 if(!settings.database){
   console.log("\nNo Database credentials in Envirnment, please edit .env and run source .env")
   process.exit();
@@ -18,54 +21,9 @@ if(!settings.database){
 
 console.log(`logging into database ${settings.database} at ${settings.host}\n`)
 
-const client = mysql.createConnection(settings);  
+db.configure(settings, require('mysql2'));
 
-function connect (callback) {
-  client.connect(function(err) {
-  if (err) {
-    console.log(settings)
-    console.error('error connecting: ' + err.stack);
-    return;
-  }
-
-  console.log('connected to db as id ' + client.threadId);
-  });
-
-  console.log("creating tables")
-
-  createTables(client)
-
-  // Call the callback
-  callback();
-}
-
-// Disconnect from the database
-function disconnect () {
-  client.end(err => {
-    console.log('Disconnected from database');
-
-    if (err) {
-      console.log('There was an error during disconnection', err.stack);
-    }
-  });
-}
-
-async function query (query_text, query_params) {
-
-  try {
-    const result = await client.query(query_text, query_params);
-    // console.log(`query ${query_text} returned ${result}`)
-    return result;
-  }catch (err) {
-    console.log("********* CAUGHT ERROR *********")
-    console.log("query_text", query_text)
-    console.log("\nquery_params", query_params)
-    console.error(err);
-  }
-}
 
 module.exports = {
-  connect,
-  disconnect,
-  query
+  db
 };
