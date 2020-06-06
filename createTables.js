@@ -6,7 +6,7 @@ function createTables(db){
                     date DATE,
                     location VARCHAR (255),
                     type VARCHAR (255),
-                    count INTEGER,
+                    count INTEGER
                   )
   `);
 

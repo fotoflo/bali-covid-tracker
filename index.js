@@ -5,7 +5,10 @@ const db = database.db;
 
 const run = async () => {
 	const data = await fetchDailyData()
+	console.log("scraped")
 	const stored = await storeParsedResults(data)
+	console.log("finished")
+	process.exit(0);
 }
 
 run();

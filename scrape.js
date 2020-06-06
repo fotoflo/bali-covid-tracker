@@ -10,6 +10,9 @@ const fetchDailyData = async () => {
 			const json = $("body > div > script:nth-child(15)").html().split('\n')[1].split(' = ')[1].split(";")[0];
 			const data = JSON.parse(json)
 			return data;
+		})
+		.catch(err => {
+			console.log("error fetching data ", err)
 		});
 	}
 

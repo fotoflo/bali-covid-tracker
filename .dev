@@ -1,0 +1,5 @@
+export DB_USER=root
+export DB_PASS=root
+export DB_HOST=localhost
+export DB_NAME=covid_tracker
+export DB_PORT=8889

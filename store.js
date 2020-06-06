@@ -1,5 +1,6 @@
 const database = require('./database');
 const db = database.db;
+const Promise = require("bluebird");
 
 
 const storeRawData = async (data) => {
@@ -13,15 +14,15 @@ const storeRawData = async (data) => {
 const storeParsedResults = async (data) => {
 	const regencies = Object.keys(data);
 
-	regencies.forEach( regency => { 
-	    let type = Object.keys( data[regency] )
-	    type.forEach( type => {
+	await Promise.each(regencies, async regency => { 
+	    let types = Object.keys( data[regency] )
+	    await Promise.each( types, async type => {
 	    	let count = data[regency][type];
 	    	if(typeof(count) == 'string'){
-		    	return;
+		    	return;s
 		    }
 
-	    	db.query('INSERT INTO regency_data SET ?',{
+	    	await db.query('INSERT INTO regency_data SET ?',{
 		    	 	type: type,
 		    	 	date: today(),
 		    	 	location: regency,
@@ -29,7 +30,11 @@ const storeParsedResults = async (data) => {
 		    	 } 
 	    	)
 	    }) 
-	})	
+	}).then( result => {
+		console.log("done storing", result)
+	}).catch( err => {
+		console.log("error storing", err)
+	})
 }
 
 module.exports = {
