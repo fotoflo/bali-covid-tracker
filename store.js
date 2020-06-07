@@ -38,7 +38,7 @@ const storeParsedResults = async (data) => {
 }
 
 const calculateTotals = async () => {
-	return await db.query(`select type, sum(count) as total
+	return await db.query(`select type, sum(count) as count
 		from regency_data
 		where date = curdate()
 		group by type;`)
@@ -49,7 +49,7 @@ const calculateTotals = async () => {
 				    		type: row.type,
 				    		date: today(),
 				    		location: 'TOTAL',
-				    		count: row.total
+				    		count: row.count
 					    });
 		})
 	});
