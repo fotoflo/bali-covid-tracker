@@ -19,10 +19,10 @@ const storeParsedResults = async (data) => {
 	    await Promise.each( types, async type => {
 	    	let count = data[regency][type];
 	    	if(typeof(count) == 'string'){
-		    	return;s
+		    	return;
 		    }
 
-	    	await db.query('INSERT INTO regency_data SET ?',{
+	    	return await db.query('INSERT INTO regency_data SET ?',{
 		    	 	type: type,
 		    	 	date: today(),
 		    	 	location: regency,
@@ -37,9 +37,29 @@ const storeParsedResults = async (data) => {
 	})
 }
 
+const calculateTotals = async () => {
+	return await db.query(`select type, sum(count) as total
+		from regency_data
+		where date = curdate()
+		group by type;`)
+	.spread( async rows => {
+		return Promise.each(rows, async row => {
+			console.log(row)
+			await db.query('INSERT INTO regency_data SET ?',{
+				    		type: row.type,
+				    		date: today(),
+				    		location: 'TOTAL',
+				    		count: row.total
+					    });
+		})
+	});
+}
+
+
 module.exports = {
 	storeRawData,
-	storeParsedResults
+	storeParsedResults,
+	calculateTotals
 };
 
 const today = () =>{
