@@ -46,3 +46,28 @@ if this one exists for the date, we dont crawl again
 4. count - the number of new cases, recovered, etc
 
 
+# Creating a data studio data source
+
+I create a mysql source with the following query to create a data studio data source
+
+```
+select date, location, count, type as original,
+	CASE
+		WHEN type = 'lainnya' THEN "other"
+        WHEN type = 'meninggal' THEN "dead"
+        WHEN type = 'pp' THEN "pp" #?????
+        WHEN type = 'otg' THEN "Possible, no symptoms"
+        WHEN type = 'odp' THEN "Suspected Outpatient"
+        WHEN type = 'pdp' THEN "Under Isolation"
+        WHEN type = 'sembuh' THEN "Recovered"
+        WHEN type = 'positif' THEN "Total Positive"
+        WHEN type = 'positif_luar' THEN "Infected via International Traveler"
+        WHEN type = 'positif_lokal' THEN "Infected via Local Transmission"
+        WHEN type = 'positif_dalam' THEN "Infected via Domestic Traveler"
+        WHEN type = 'positif_lainnya' THEN "Infected via Other Source"
+    ELSE "ERROR"
+END as type
+from regency_data 
+where location like "Total"
+order by date desc;
+```
