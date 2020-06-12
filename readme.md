@@ -1,5 +1,8 @@
 BALICOVID SCRAPER
 
+See it here:
+https://bit.ly/bali-covid-tracker
+
 #installation
 
 Clone the repository. Install the dependencies as usual:
