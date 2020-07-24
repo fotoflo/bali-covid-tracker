@@ -1,4 +1,4 @@
-BALICOVID SCRAPER
+BALICOVID SCRAPER - an Open Source initive by [GetCraft.com](https://getcraft.com)
 
 See it here:
 https://bit.ly/bali-covid-tracker
@@ -21,6 +21,7 @@ Also, create a file called '.env' in the root directory of the project. This nee
     then run `source .env` to add those environment variables to your environment - you can run `printenv` to validate they are now part of the runtime environment 
     
 # running
+`node .`
 
 put on a cron job
 run daily at 12:01 bali time
